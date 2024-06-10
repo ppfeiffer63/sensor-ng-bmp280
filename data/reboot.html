@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" class="h-100" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>ESP-Sensor</title>
+	  <link href="bs.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body class="d-flex flex-column h-100">
+        
+	<header>
+	  <!-- Fixed navbar -->
+	  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<div class="container-fluid">
+		  <a class="navbar-brand" href="#">%ESP_TYP%</a>
+		</div>
+	  </nav>
+	</header>
+
+	<!-- Begin page content -->
+	<main class="flex-shrink-0">
+	  <div class="container">
+		<h1 class="mt-5 justify-content-center">Zeit für Neustart, WiFi und Webserver-Initialisierung<br></h1>
+		<h3 class="mt-5 justify-content-center">wechseln zur Startseite in:  <span id="countdown">20</span> Sekunden...</h3>
+	  </div>
+	</main>
+
+	<footer class="footer mt-auto bg-body-tertiary">
+		<div class="container">
+		  <div class="d-flex mb-1">
+			  <div class="me-auto p-1"><p id="status">staurs</p></div>
+			  <div class="p-1 gap-1"><span class="badge text-bg-primary">%BUILD_TIMESTAMP%</span></div>
+			  <div class="p-1 gap-1"><span class="badge text-bg-primary">%IP%</span></div></div>
+		  </div>
+		</div>
+	  </footer>
+	<script src="bs.min.js"></script>
+	<script type="text/javascript">
+		var seconds = 20;
+		function countdown() {
+		  seconds = seconds - 1;
+		  if (seconds <= 0) {
+			window.location = "/";
+		  } else {
+			document.getElementById("countdown").innerHTML = seconds;
+			window.setTimeout("countdown()", 1000);
+		  }
+		}
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "/reboot", true);
+		xhr.send();
+		document.getElementById("status").innerHTML = "starte neu"
+		countdown();
+	  </script>
+  </body>
+</html>
